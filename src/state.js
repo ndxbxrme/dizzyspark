@@ -1,6 +1,6 @@
 import { getAlphaValues } from "./get-alpha-values.js";
 import { loadScripts } from "./load-scripts.js";
-import { loadSchedule } from "../load-schedule.js";
+import { loadSchedule } from "./load-schedule.js";
 
 class State {
   constructor(data, game, sources) {
