@@ -4,17 +4,17 @@ import { getUniqueAudiosByType } from './get-unique-audios-by-type.js';
 
 class Game {
   constructor(options, game, sources, script, audio) {
-    this.canvas = document.querySelector('.game-canvas');
+    this.canvas = document.querySelector(options.gameCanvas || '.game-canvas');
     this.ctx = this.canvas.getContext('2d');
-    this.cursorCanvas = document.querySelector('.game-cursor');
+    this.cursorCanvas = document.querySelector(options.gameCursor || '.game-cursor');
     this.cursorCtx = this.cursorCanvas.getContext('2d');
     this.canvas.width = this.cursorCanvas.width = 1920;
     this.canvas.height = this.cursorCanvas.height = 1080;
     this.options = options;
-    this.game = game;
-    this.sources = sources;
-    this.script = script;
-    this.audio = audio;
+    this.game = options.game;
+    this.sources = options.sources;
+    this.script = options.script;
+    this.audio = options.audio;
     this.variables = {
       inventory: [],
       musicVolume: 0.02
@@ -89,7 +89,7 @@ class Game {
         this.nextMusicBuffer.connect(this.nextGain);
         this.nextGain.gain.setValueAtTime(0, now);
         this.nextGain.gain.linearRampToValueAtTime(this.variables.musicVolume, now + crossfadeDuration);
-        this.nextGain.connect(audio.destination);
+        this.nextGain.connect(this.audio.destination);
         this.nextMusicBuffer.start();
         setTimeout(() => {
           if(this.currentMusicBuffer) {
